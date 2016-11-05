@@ -1,39 +1,78 @@
- <html>
- <head>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.3/p5.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.4/addons/p5.sound.js"></script>
-   <script>
-    
-    // an example using sound (which is not required for this assignment)
+<html>
 
-    var sound;
-    
-    function preload() 
-    {
-      sound = loadSound('pop.mp3');
-    }
-    
-    function setup() 
-    {
-       createCanvas(800, 600);
-       textAlign(CENTER);
-       fill(100);
-       noStroke();
-       text("Click to play sound", width/2, height/2);
-    }
+<head>
+    <meta charset="UTF-8">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.6/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.16/addons/p5.sound.js"></script>
+    <script>
+        var x = [];
+        var y = [];
+        var x1 = [];
+        var y1 = [];
+        var size = [];
+        var speed = [];
+        var sound;
+        var font;
 
-    function draw() 
-    {
-     
-    }
-    
-    function mouseClicked() 
-    { 
-       sound.play();
-       background(random(255), random(255), random(255));
-    }
+        function preload() {
+            img = loadImage("color-swirl-1080P-wallpaper.jpg");
+            sound = loadSound("Take Me Home - Inspiring Piano Guitar Folk Beat - Prod. by Danso(1).mp3");
+            font = loadFont("mark_my_words.ttf");
+        }
 
-   </script>
- </head>
- </html>
+        function setup() {
+            createCanvas(500, 400);
+            sound.loop();
+
+            for (var i = 0; i < 100; i++) {
+                x[i] = random(width);
+                y[i] = random(height);
+
+                size[i] = random(30, 55);
+                speed[i] = random(1, 3);
+            }
+        }
+
+        function draw() {
+            background(0);
+            move();
+
+            stroke(255);
+            fill(255);
+            textFont(font);
+            textSize(30);
+            text("Sorry for poor presentation", width / 2 - 200, height / 2 + 20);
+
+            image(img, mouseX, mouseY, 200, 200);
+
+            for (var i = 0; i < 100; i++) {
+                x[i] += random(-1 * speed[i], 1 * speed[i]);
+                y[i] += random(-1 * speed[i], 1 * speed[i]);
+
+                noStroke();
+                fill(random(255),random(255),random(255),50);
+                ellipse(x[i], y[i], size[i], size[i]);
+            }
+
+            for (var i = 0; i < x1.length; i++) {
+                image(img, x1[i], y1[i], 100, 100);
+            }
+
+        }
+
+        function move() {
+            for (var i = 0; i < x1.length; i++) {
+                x1[i] = x1[i] + speed[i];
+                y1[i] = y1[i] - speed[i];
+            }
+        }
+
+        function mousePressed() {
+            x1[x1.length] = mouseX;
+            y1[y1.length] = mouseY;
+        }
+
+    </script>
+</head>
+</html>
 
